@@ -390,9 +390,11 @@
             showRefreshIndicator();
             document.getElementById('loading').style.display = 'block';
             
-            // Load news data from JSON file
-            console.log('Fetching /news-data.json...');
-            fetch('/news-data.json')
+            // Load news data from JSON file with cache busting
+            const timestamp = new Date().getTime();
+            const url = `/news-data.json?t=${timestamp}`;
+            console.log('Fetching:', url);
+            fetch(url)
                 .then(response => {
                     console.log('Response status:', response.status, response.statusText);
                     console.log('Response headers:', Object.fromEntries(response.headers.entries()));
