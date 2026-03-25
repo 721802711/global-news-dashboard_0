@@ -386,20 +386,26 @@
         
         // Fetch news
         function fetchNews() {
+            console.log('fetchNews() called');
             showRefreshIndicator();
             document.getElementById('loading').style.display = 'block';
             
             // Load news data from JSON file
+            console.log('Fetching /news-data.json...');
             fetch('/news-data.json')
                 .then(response => {
+                    console.log('Response status:', response.status, response.statusText);
+                    console.log('Response headers:', Object.fromEntries(response.headers.entries()));
                     if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                        throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
                     }
                     return response.json();
                 })
                 .then(data => {
+                    console.log('JSON data received:', data);
                     // Use data from JSON file
                     newsData = data.data || [...SAMPLE_NEWS];
+                    console.log('News data loaded:', newsData.length, 'items');
                     
                     // Update timestamp
                     const now = new Date();
@@ -411,9 +417,11 @@
                     
                     hideRefreshIndicator();
                     document.getElementById('loading').style.display = 'none';
+                    console.log('News loaded successfully');
                 })
                 .catch(error => {
                     console.error('Error loading news data:', error);
+                    console.log('Falling back to sample data');
                     // Fallback to sample data
                     newsData = [...SAMPLE_NEWS];
                     
