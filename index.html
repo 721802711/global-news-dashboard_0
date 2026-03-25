@@ -379,10 +379,27 @@
             }
         ];
         
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+        // Initialize with enhanced debugging
+        function initializeApp() {
+            console.log('🚀 App initializing...');
+            console.log('✅ DOM fully loaded');
+            console.log('📊 Checking required elements:');
+            console.log('  - newsContainer:', !!document.getElementById('newsContainer'));
+            console.log('  - loading:', !!document.getElementById('loading'));
+            console.log('  - lastUpdated:', !!document.getElementById('lastUpdated'));
+            console.log('  - refreshIndicator:', !!document.getElementById('refreshIndicator'));
+            
             fetchNews();
-        });
+        }
+        
+        // Wait for DOM to be fully loaded
+        if (document.readyState === 'loading') {
+            console.log('⏳ DOM still loading, waiting...');
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            console.log('⚡ DOM already loaded, initializing immediately');
+            initializeApp();
+        }
         
         // Fetch news
         function fetchNews() {
