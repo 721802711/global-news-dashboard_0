@@ -13,7 +13,10 @@
   "routes": [
     {
       "src": "/news-data.json",
-      "dest": "/news-data.json"
+      "dest": "/news-data.json",
+      "headers": {
+        "Content-Type": "application/json"
+      }
     },
     {
       "src": "/(.*)",
