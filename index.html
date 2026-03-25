@@ -390,7 +390,7 @@
             document.getElementById('loading').style.display = 'block';
             
             // Load news data from JSON file
-            fetch('news-data.json')
+            fetch('/news-data.json')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
